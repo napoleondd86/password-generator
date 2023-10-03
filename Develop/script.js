@@ -2,7 +2,7 @@
 var generateBtn = document.querySelector("#generate");  //DONT TOUCH THIS LINE
 
 function generatePassword () {
-
+  
   //prompt  -- asks for info
   var name = prompt("what is your name?");
   var length = "";
@@ -23,43 +23,61 @@ function generatePassword () {
   var upperStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var lowerStr = "abcdefghijklmnopqrstuvwxyz";
   var newPassword = "";
-  var charArray = [specialCharsStr, numbersStr, upperStr, lowerStr]
-  var randomArray = charArray[random(charArray.length)]
+  var charArray = []
   
-  //confirm  -- asks yes [confirm] or no [cancel]
-  var special = confirm("Do you want to include special characters?");
-  var upperCase = confirm("Do you want to include upper case letters?");
-  var lowerCase = confirm("Do you want to include lower case letters?");
-  var numbers = confirm("Do you want to include numbers?");
+  
+  //confirm  -- asks yes [confirm] or no [cancel] and add to charArray if yes
+  function userChoices() {
+    var special = confirm("Do you want to include special characters?");
+    if (special){
+      charArray.push(specialCharsStr);
+      newPassword += specialCharsStr[random(specialCharsStr.length)];
+      console.log(newPassword)
+    }
 
-  console.log(name);
-  console.log(length);
-  console.log(numbers);
-  console.log(special);
-  console.log(upperCase);
-  console.log(lowerCase);
-  console.log(randomArray);
+    var upperCase = confirm("Do you want to include upper case letters?");
+    if (upperCase){
+      charArray.push(upperStr);
+      newPassword += upperStr[random(upperStr.length)];
+      console.log(newPassword);
+    }
+    var lowerCase = confirm("Do you want to include lower case letters?");
+    if (lowerCase){
+      charArray.push(lowerStr);
+      newPassword += lowerStr[random(lowerStr.length)];
+      console.log(newPassword);
+    }
+    var numbers = confirm("Do you want to include numbers?");
+    if (numbers){
+      charArray.push(numbersStr);
+      newPassword += numbersStr[random(numbersStr.length)];
+      console.log(newPassword);
+    }
+    if (charArray.length === 0) {
+      alert("You must choose at least one character set.");
+      userChoices();
+    }
+  }
+  userChoices();
+
+
+  // console.log(name);
+  // console.log(length);
+  // console.log(special);
+  // console.log(numbers);
+  // console.log(upperCase);
+  // console.log(lowerCase);
+  // console.log(randomArray);
+  // console.log(charArray)
 
   function random(i){
     return Math.floor(Math.random() * i);
   }
-
-  //STILL NEED TO CHANGE BASED ON USER PREFERENCES
-  for (var i = 0; i < length; i++) {
-    if (i === 0) {
-      newPassword += specialCharsStr[random(specialCharsStr.length)]
-    } else if(i === 1) {
-      newPassword += numbersStr[random(numbersStr.length)]
-    } else if (i === 2) {
-      newPassword += upperStr[random(upperStr.length)]
-    } else if (i === 3 ) {
-      newPassword += lowerStr[random(lowerStr.length)]
-    } else {
-      newPassword += randomArray[random(randomArray.length)]}; 
+  
+  for (var i = newPassword.length; i < length; i++) {
+    var randomArray = charArray[random(charArray.length)];
+    newPassword += randomArray[random(randomArray.length)];
   }
-
-
-
 
   return newPassword
 }
