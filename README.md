@@ -12,7 +12,7 @@
 
 ## Screenshot
 
-![Preview Screenshot](./Assets/password-generator-screenshot.png)
+![Preview Screenshot](./assets/images/password-generator-screenshot.png)
 
 ## Deployed Page
 
